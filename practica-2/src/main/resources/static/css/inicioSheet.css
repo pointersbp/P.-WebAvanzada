@@ -1,0 +1,42 @@
+/* Estilo para el encabezado */
+.masthead {
+    background-color: #3498db;
+    color: #ffffff;
+}
+
+/* Estilo para los enlaces del menú de navegación */
+.navbar-nav a {
+    color: #2980b9;
+}
+
+/* Estilo para los enlaces del pie de página */
+.footer-links a {
+    color: #279aae;
+}
+
+/* Estilo para los botones */
+.btn-primary {
+    background-color: #2980b9;
+    border-color: #2980b9;
+    color: #ffffff;
+}
+
+/* Estilo para los enlaces */
+a {
+    color: #3498db; /* Azul */
+}
+
+/* Cambiar el color de fondo del botón del menú desplegable */
+.navbar-toggler-icon {
+    background-color: #ffffff; /* Blanco */
+}
+
+/* Cambiar el color de fondo del menú desplegable al hacer clic */
+.navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
+    background-color: #2980b9; /* Azul más oscuro */
+}
+
+/* Estilo para el botón de navegación activo */
+.nav-item.active a {
+    color: #27ae60; /* Verde */
+}
