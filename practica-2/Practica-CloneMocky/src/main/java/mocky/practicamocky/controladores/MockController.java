@@ -66,7 +66,7 @@ public class MockController {
         }
 
         throw new ResponseStatusException(
-                HttpStatus.NOT_FOUND, "NO SE ENCUENTRA EL ENDPOINT!"
+                HttpStatus.NOT_FOUND, "No se encontro el Endpoint!"
         );
     }
 
@@ -97,7 +97,7 @@ public class MockController {
         }
 
         throw new ResponseStatusException(
-                HttpStatus.NOT_FOUND, "NO SE ENCUENTRA EL ENDPOINT!"
+                HttpStatus.NOT_FOUND, "No se encontro el Endpoint!"
         );
     }
 }

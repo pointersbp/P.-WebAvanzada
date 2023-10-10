@@ -1,4 +1,4 @@
-package clonemocky.practicaclonemocky.configuracion;
+package mocky.practicamocky.configuracion;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;

@@ -33,7 +33,7 @@ public class SecurityService implements UserDetailsService {
             return;
         }
 
-        System.out.println("AGREGANDO AL USUARIOP Y SU ROL A LA BASE DE DATOS");
+        System.out.println("Agregando usuario a la BD . . . ");
 
         Rols rolAdmin = new Rols("ROLE_ADMIN");
 

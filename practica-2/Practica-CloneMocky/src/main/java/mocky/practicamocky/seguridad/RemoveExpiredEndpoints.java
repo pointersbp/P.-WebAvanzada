@@ -1,4 +1,4 @@
-package clonemocky.practicaclonemocky.seguridad;
+package mocky.practicamocky.seguridad;
 
 import mocky.practicamocky.entidades.repositorios.MockEndpointRepository;
 import org.springframework.beans.factory.annotation.Autowired;

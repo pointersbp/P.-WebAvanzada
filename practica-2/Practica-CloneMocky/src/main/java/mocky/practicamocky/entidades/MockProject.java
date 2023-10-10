@@ -17,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 public class MockProject {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "slb64")
-    @GenericGenerator(name = "slb64", strategy = "clonemocky.practicaclonemocky.utilidades.generadores.SequenceGenerator", parameters = {
+    @GenericGenerator(name = "slb64", strategy = "mocky.practicamocky.utilidades.generadores.SequenceGenerator", parameters = {
             @Parameter(name = "initial_value", value = "0")
     })
     @Id

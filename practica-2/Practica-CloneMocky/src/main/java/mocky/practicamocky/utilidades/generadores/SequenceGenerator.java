@@ -1,6 +1,6 @@
-package clonemocky.practicaclonemocky.utilidades.generadores;
+package mocky.practicamocky.utilidades.generadores;
 
-import clonemocky.practicaclonemocky.utilidades.CustomBase64;
+import mocky.practicamocky.utilidades.CustomBase64;
 import org.hibernate.HibernateException;
 import org.hibernate.MappingException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
@@ -69,4 +69,5 @@ public class SequenceGenerator extends SequenceStyleGenerator {
             }
         }
     }
+
 }
