@@ -19,28 +19,28 @@ public class EstudianteServicio {
         this.estudianteRepository = estudianteRepository;
     }
 
-    // Método para guardar un estudiante
+    //Guardar un estudiante
     public void saveEstudiante(Estudiante estudiante) {
         estudianteRepository.save(estudiante);
     }
 
-    // Método para actualizar un estudiante
+    //Actualizar un estudiante
     public void updateEstudiante(Estudiante estudiante) {
         estudianteRepository.save(estudiante);
     }
 
-    // Método para obtener todos los estudiantes
+    //Obtener todos los estudiantes
     public List<Estudiante> getAllEstudiantes() {
         return estudianteRepository.findAll();
     }
 
-    // Método para obtener un estudiante por su ID
+    //Método para obtener un estudiante por su ID
     public Estudiante getEstudianteById(Long id) {
         Optional<Estudiante> estudianteOptional = estudianteRepository.findById(id);
         return estudianteOptional.orElse(null);
     }
 
-    // Método para eliminar un estudiante por su ID
+    //Método para eliminar un estudiante por su ID
     public void deleteEstudiante(Long id) {
         estudianteRepository.deleteById(id);
     }
