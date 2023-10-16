@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/js/bootstrap.min.js.map"></script>
+    <script src="/js/jquery-3.6.0.min.js"></script>
+    <script src="/js/inicioScripts.js"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="/css/inicioStyles.css" rel="stylesheet" />
+    <link href="/css/proyectoStylesheet.css" rel="stylesheet" />
+    <title>Endpoints</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand" href="#page-top">MI MOCKY</a>
+                <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/">Inicio</a></li>
+                        <li th:if="${admin}" class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/admin">Administrador</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/proyecto/">Proyectos</a></li>
+                        <li  class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/desconectarset">Cerrar Sesión</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+
+    </header>
+    <main role="main" class="container">
+        <div class="container-fluid">
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-primary">
+                            <h4 class="card-title" th:text="${titulo}">Crear endpoint</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="container">
+                                <hr>
+                                <form th:unless="${proyectos}" th:action="'/proyecto/p/'+${id}+'/add'" method="POST">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating" th:text="${ruta}">Ruta</label>
+                                                <input id="ruta" name="ruta" type="text" class="form-control" minlength="3" maxlength="16" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="" th:text="${verbo}">Elige un verbo</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <fieldset>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="getRadio" id="getRadio" value="GET" checked="checked">
+                                                    <label class="form-check-label" for="getRadio">GET</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="getRadio" id="postRadio" value="POST">
+                                                    <label class="form-check-label" for="postRadio">POST</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="getRadio" id="putRadio" value="PUT">
+                                                    <label class="form-check-label" for="putRadio">PUT</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="getRadio" id="patchRadio" value="PATCH">
+                                                    <label class="form-check-label" for="patchRadio">PATCH</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="getRadio" id="delRadio" value="DELETE">
+                                                    <label class="form-check-label" for="delRadio">DELETE</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="getRadio" id="optRadio" value="OPTIONS">
+                                                    <label class="form-check-label" for="optRadio">OPTIONS</label>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <input name="headersNum" id="headersNum" type="number" class="d-none" value="0" step="1">
+                                                <label for="headers-button" class="col-lg-2 control-label">Headers</label>
+                                                <div class="col-lg-2">
+                                                    <button type="button" class="btn btn-secondary" id="add_form_field">Añadir <span style="font-size:16px; font-weight:bold;">+ </span></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="headers-list">
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating" th:text="${codigo}">Código de respuesta: </label>
+                                                <select id="codigo" name="codigo" class="form-control">
+                                                    <option th:text="${c100}" value="100">100 - Continue</option>
+                                                    <option th:text="${c101}" value="101">101 - Switching Protocols</option>
+                                                    <option th:text="${c102}" value="102">102 - Processing</option>
+                                                    <option th:text="${c200}" value="200" selected="">200 - OK</option>
+                                                    <option th:text="${c201}" value="201">201 - Created</option>
+                                                    <option th:text="${c202}" value="202">202 - Accepted</option>
+                                                    <option th:text="${c203}" value="203">203 - Non-Authoritative Information</option>
+                                                    <option th:text="${c204}" value="204">204 - No Content</option>
+                                                    <option th:text="${c205}" value="205">205 - Reset Content</option>
+                                                    <option th:text="${c206}" value="206">206 - Partial Content</option>
+                                                    <option th:text="${c207}" value="207">207 - Multi-Status</option>
+                                                    <option th:text="${c208}" value="208">208 - Already Reported</option>
+                                                    <option th:text="${c226}" value="226">226 - IM Used</option>
+                                                    <option th:text="${c300}" value="300">300 - Multiple Choices</option>
+                                                    <option th:text="${c301}" value="301">301 - Moved Permanently</option>
+                                                    <option th:text="${c302}" value="302">302 - Found</option>
+                                                    <option th:text="${c303}" value="303">303 - See Other</option>
+                                                    <option th:text="${c304}" value="304">304 - Not Modified</option>
+                                                    <option th:text="${c305}" value="305">305 - Use Proxy</option>
+                                                    <option th:text="${c306}" value="306">306 - Switch Proxy</option>
+                                                    <option th:text="${c307}" value="307">307 - Temporary Redirect</option>
+                                                    <option th:text="${c308}" value="308">308 - Permanent Redirect</option>
+                                                    <option th:text="${c400}" value="400">400 - Bad Request</option>
+                                                    <option th:text="${c401}" value="401">401 - Unauthorized</option>
+                                                    <option th:text="${c402}" value="402">402 - Payment Required</option>
+                                                    <option th:text="${c403}" value="403">403 - Forbidden</option>
+                                                    <option th:text="${c404}" value="404">404 - Not Found</option>
+                                                    <option th:text="${c405}" value="405">405 - Method Not Allowed</option>
+                                                    <option th:text="${c406}" value="406">406 - Not Acceptable</option>
+                                                    <option th:text="${c407}" value="407">407 - Proxy Authentication Required</option>
+                                                    <option th:text="${c408}" value="408">408 - Request Timeout</option>
+                                                    <option th:text="${c409}" value="409">409 - Conflict</option>
+                                                    <option th:text="${c410}" value="410">410 - Gone</option>
+                                                    <option th:text="${c411}" value="411">411 - Length Required</option>
+                                                    <option th:text="${c412}" value="412">412 - Precondition Failed</option>
+                                                    <option th:text="${c413}" value="413">413 - Request Entity Too Large</option>
+                                                    <option th:text="${c414}" value="414">414 - Request-URI Too Long</option>
+                                                    <option th:text="${c415}" value="415">415 - Unsupported Media Type</option>
+                                                    <option th:text="${c416}" value="416">416 - Requested Range Not Satisfiable</option>
+                                                    <option th:text="${c417}" value="417">417 - Expectation Failed</option>
+                                                    <option th:text="${c419}" value="419">419 - Authentication Timeout</option>
+                                                    <option th:text="${c420}" value="420">420 - Enhance Your Calm</option>
+                                                    <option th:text="${c422}" value="422">422 - Unprocessable Entity</option>
+                                                    <option th:text="${c423}" value="423">423 - Locked</option>
+                                                    <option th:text="${c424}" value="424">424 - Failed Dependency</option>
+                                                    <option th:text="${c424a}" value="424">424 - Method Failure</option>                                                    
+                                                    <option th:text="${c426}" value="426">426 - Upgrade Required</option>
+                                                    <option th:text="${c428}" value="428">428 - Precondition Required</option>
+                                                    <option th:text="${c429}" value="429">429 - Too Many Requests</option>
+                                                    <option th:text="${c431}" value="431">431 - Request Header Fields Too Large</option>
+                                                    <option th:text="${c444}" value="444">444 - No Response</option>
+                                                    <option th:text="${c449}" value="449">449 - Retry With</option>
+                                                    <option th:text="${c450}" value="450">450 - Blocked by Windows Parental Controls</option>
+                                                    <option th:text="${c451}" value="451">451 - Unavailable For Legal Reasons</option>
+                                                    <option th:text="${c451a}" value="451">451 - Redirect</option>
+                                                    <option th:text="${c494}" value="494">494 - Request Header Too Large</option>
+                                                    <option th:text="${c495}" value="495">495 - Cert Error</option>
+                                                    <option th:text="${c496}" value="496">496 - No Cert</option>
+                                                    <option th:text="${c497}" value="497">497 - HTTP to HTTPS</option>                                                
+                                                    <option th:text="${c500}" value="500">500 - Internal Server Error</option>
+                                                    <option th:text="${c501}" value="501">501 - Not Implemented</option>
+                                                    <option th:text="${c502}" value="502">502 - Bad Gateway</option>
+                                                    <option th:text="${c503}" value="503">503 - Service Unavailable</option>
+                                                    <option th:text="${c504}" value="504">504 - Gateway Timeout</option>
+                                                    <option th:text="${c505}" value="505">505 - HTTP Version Not Supported</option>
+                                                    <option th:text="${c506}" value="506">506 - Variant Also Negotiates</option>
+                                                    <option th:text="${c507}" value="507">507 - Insufficient Storage</option>
+                                                    <option th:text="${c508}" value="508">508 - Loop Detected</option>
+                                                    <option th:text="${c509}" value="509">509 - Bandwidth Limit Exceeded</option>
+                                                    <option th:text="${c510}" value="510">510 - Not Extended</option>
+                                                    <option th:text="${c511}" value="511">511 - Network Authentication Required</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group ">
+                                                <label class="bmd-label-floating" th:text="${tipo}">Tipo de contenido: </label>
+                                                <select id="contenttype" name="contenttype" class="form-control" aria-label="Default select example">
+                                                    <option value="application/json" selected>application/json</option>
+                                                    <option value="application/xml">application/xml</option>
+                                                    <option value="text/xml">text/xml</option>
+                                                    <option value="text/json">text/json</option>
+                                                    <option value="text/plain">text/plain</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating" th:text="${codigo}">Código de respuesta</label>
+                                                <textarea id="cuerpo" name="cuerpo" class="form-control textarea--code" lass="span6" rows="12" placeholder="{
+    &quot;identity&quot;: {
+      &quot;id&quot;: &quot;f0000000-00b0-000a-d00e-00g000000f00&quot;,
+      &quot;login&quot;: &quot;Fulanito Mike&quot;
+    },
+    &quot;permissions&quot;: {
+      &quot;roles&quot;: [
+        &quot;reader&quot;
+      ]
+    }
+}"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating" th:text="${nombre}">Nombre del endpoint</label>
+                                                <input id="nombre" name="nombre" type="text" class="form-control" minlength="3" maxlength="16" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating" th:text="${descripcion}">Descripción</label>
+                                                <textarea id="descripcion" name="descripcion" class="form-control" lass="span6" rows="5"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group ">
+                                                <label class="bmd-label-floating" th:text="${tiempo}">Tiempo de expiración: </label>
+                                                <select id="limit" name="limit" class="form-control" aria-label="Default select example">
+                                                    <option th:text="${ano}" value="ano" selected>1 año</option>
+                                                    <option th:text="${mes}" value="mes">1 mes</option>
+                                                    <option th:text="${semana}" value="semana">1 semana</option>
+                                                    <option th:text="${dia}" value="dia">1 día</option>
+                                                    <option th:text="${hora}" value="hora">1 hora</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating" th:text="${demora}">Tiempo de respuesta</label>
+                                                <input id="demora" name="demora" type="number" class="form-control" min="0" value="0" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="" th:text="${jwt}">Aplicar JWT</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <fieldset>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="jwtrequired" id="yesRadio" value="true">
+                                                    <label class="form-check-label" for="yesRadio">Ok</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="jwtrequired" id="noRadio" value="false" checked="checked">
+                                                    <label class="form-check-label" for="noRadio">No</label>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <input id="submit" name="submit" type="submit" value="Crear endpoint" class="btn btn-secondary float-right">
+                                    <div class="clearfix"></div>
+                                </form>
+                                <form th:if="${proyectos}" action="/proyecto/crearendpoint" method="POST">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating" th:text="${proj}">Seleccionar proyecto</label>
+                                                <select class="form-control" name="proyecto" id="proje">
+                                                    <option value="0default" th:text="${default}" selected>Default</option>
+                                                    <option th:each="proyecto : ${proyectos}" th:value="${proyecto.id}" th:text="${proyecto.id}"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating" th:text="${ruta}">Ruta</label>
+                                                <input id="ruta" name="ruta" type="text" class="form-control" minlength="3" maxlength="16" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="" th:text="${verbo}">Elige un verbo</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <fieldset>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="getRadio" id="getRadio" value="GET" checked="checked">
+                                                    <label class="form-check-label" for="getRadio">GET</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="getRadio" id="postRadio" value="POST">
+                                                    <label class="form-check-label" for="postRadio">POST</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="getRadio" id="putRadio" value="PUT">
+                                                    <label class="form-check-label" for="putRadio">PUT</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="getRadio" id="patchRadio" value="PATCH">
+                                                    <label class="form-check-label" for="patchRadio">PATCH</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="getRadio" id="delRadio" value="DELETE">
+                                                    <label class="form-check-label" for="delRadio">DELETE</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="getRadio" id="optRadio" value="OPTIONS">
+                                                    <label class="form-check-label" for="optRadio">OPTIONS</label>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <input name="headersNum" id="headersNum" type="number" class="d-none" value="0" step="1">
+                                                <label for="headers-button" class="col-lg-2 control-label">Headers</label>
+                                                <div class="col-lg-2">
+                                                    <button type="button" class="btn btn-secondary" id="add_form_field">Añadir <span style="font-size:16px; font-weight:bold;">+ </span></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="headers-list">
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating" th:text="${codigo}">Código de respuesta: </label>
+                                                <select id="codigo" name="codigo" class="form-control">
+                                                    <option th:text="${c100}" value="100">100 - Continue</option>
+                                                    <option th:text="${c101}" value="101">101 - Switching Protocols</option>
+                                                    <option th:text="${c102}" value="102">102 - Processing</option>
+                                                    <option th:text="${c200}" value="200" selected="">200 - OK</option>
+                                                    <option th:text="${c201}" value="201">201 - Created</option>
+                                                    <option th:text="${c202}" value="202">202 - Accepted</option>
+                                                    <option th:text="${c203}" value="203">203 - Non-Authoritative Information</option>
+                                                    <option th:text="${c204}" value="204">204 - No Content</option>
+                                                    <option th:text="${c205}" value="205">205 - Reset Content</option>
+                                                    <option th:text="${c206}" value="206">206 - Partial Content</option>
+                                                    <option th:text="${c207}" value="207">207 - Multi-Status</option>
+                                                    <option th:text="${c208}" value="208">208 - Already Reported</option>
+                                                    <option th:text="${c226}" value="226">226 - IM Used</option>
+                                                    <option th:text="${c300}" value="300">300 - Multiple Choices</option>
+                                                    <option th:text="${c301}" value="301">301 - Moved Permanently</option>
+                                                    <option th:text="${c302}" value="302">302 - Found</option>
+                                                    <option th:text="${c303}" value="303">303 - See Other</option>
+                                                    <option th:text="${c304}" value="304">304 - Not Modified</option>
+                                                    <option th:text="${c305}" value="305">305 - Use Proxy</option>
+                                                    <option th:text="${c306}" value="306">306 - Switch Proxy</option>
+                                                    <option th:text="${c307}" value="307">307 - Temporary Redirect</option>
+                                                    <option th:text="${c308}" value="308">308 - Permanent Redirect</option>
+                                                    <option th:text="${c400}" value="400">400 - Bad Request</option>
+                                                    <option th:text="${c401}" value="401">401 - Unauthorized</option>
+                                                    <option th:text="${c402}" value="402">402 - Payment Required</option>
+                                                    <option th:text="${c403}" value="403">403 - Forbidden</option>
+                                                    <option th:text="${c404}" value="404">404 - Not Found</option>
+                                                    <option th:text="${c405}" value="405">405 - Method Not Allowed</option>
+                                                    <option th:text="${c406}" value="406">406 - Not Acceptable</option>
+                                                    <option th:text="${c407}" value="407">407 - Proxy Authentication Required</option>
+                                                    <option th:text="${c408}" value="408">408 - Request Timeout</option>
+                                                    <option th:text="${c409}" value="409">409 - Conflict</option>
+                                                    <option th:text="${c410}" value="410">410 - Gone</option>
+                                                    <option th:text="${c411}" value="411">411 - Length Required</option>
+                                                    <option th:text="${c412}" value="412">412 - Precondition Failed</option>
+                                                    <option th:text="${c413}" value="413">413 - Request Entity Too Large</option>
+                                                    <option th:text="${c414}" value="414">414 - Request-URI Too Long</option>
+                                                    <option th:text="${c415}" value="415">415 - Unsupported Media Type</option>
+                                                    <option th:text="${c416}" value="416">416 - Requested Range Not Satisfiable</option>
+                                                    <option th:text="${c417}" value="417">417 - Expectation Failed</option>
+                                                    <option th:text="${c419}" value="419">419 - Authentication Timeout</option>
+                                                    <option th:text="${c420}" value="420">420 - Enhance Your Calm</option>
+                                                    <option th:text="${c422}" value="422">422 - Unprocessable Entity</option>
+                                                    <option th:text="${c423}" value="423">423 - Locked</option>
+                                                    <option th:text="${c424}" value="424">424 - Failed Dependency</option>
+                                                    <option th:text="${c424a}" value="424">424 - Method Failure</option>
+                                                    <option th:text="${c426}" value="426">426 - Upgrade Required</option>
+                                                    <option th:text="${c428}" value="428">428 - Precondition Required</option>
+                                                    <option th:text="${c429}" value="429">429 - Too Many Requests</option>
+                                                    <option th:text="${c431}" value="431">431 - Request Header Fields Too Large</option>
+                                                    <option th:text="${c444}" value="444">444 - No Response</option>
+                                                    <option th:text="${c449}" value="449">449 - Retry With</option>
+                                                    <option th:text="${c450}" value="450">450 - Blocked by Windows Parental Controls</option>
+                                                    <option th:text="${c451}" value="451">451 - Unavailable For Legal Reasons</option>
+                                                    <option th:text="${c451a}" value="451">451 - Redirect</option>
+                                                    <option th:text="${c494}" value="494">494 - Request Header Too Large</option>
+                                                    <option th:text="${c495}" value="495">495 - Cert Error</option>
+                                                    <option th:text="${c496}" value="496">496 - No Cert</option>
+                                                    <option th:text="${c497}" value="497">497 - HTTP to HTTPS</option>
+                                                    <option th:text="${c500}" value="500">500 - Internal Server Error</option>
+                                                    <option th:text="${c501}" value="501">501 - Not Implemented</option>
+                                                    <option th:text="${c502}" value="502">502 - Bad Gateway</option>
+                                                    <option th:text="${c503}" value="503">503 - Service Unavailable</option>
+                                                    <option th:text="${c504}" value="504">504 - Gateway Timeout</option>
+                                                    <option th:text="${c505}" value="505">505 - HTTP Version Not Supported</option>
+                                                    <option th:text="${c506}" value="506">506 - Variant Also Negotiates</option>
+                                                    <option th:text="${c507}" value="507">507 - Insufficient Storage</option>
+                                                    <option th:text="${c508}" value="508">508 - Loop Detected</option>
+                                                    <option th:text="${c509}" value="509">509 - Bandwidth Limit Exceeded</option>
+                                                    <option th:text="${c510}" value="510">510 - Not Extended</option>
+                                                    <option th:text="${c511}" value="511">511 - Network Authentication Required</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group ">
+                                                <label class="bmd-label-floating" th:text="${tipo}">Tipo de contenido: </label>
+                                                <select id="contenttype" name="contenttype" class="form-control" aria-label="Default select example">
+                                                    <option value="application/json" selected>application/json</option>
+                                                    <option value="application/xml">application/xml</option>
+                                                    <option value="text/xml">text/xml</option>
+                                                    <option value="text/json">text/json</option>
+                                                    <option value="text/plain">text/plain</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating" th:text="${codigo}">Código de respuesta</label>
+                                                <textarea id="cuerpo" name="cuerpo" class="form-control textarea--code" lass="span6" rows="12" placeholder="{
+    &quot;identity&quot;: {
+      &quot;id&quot;: &quot;f0000000-00b0-000a-d00e-00g000000f00&quot;,
+      &quot;login&quot;: &quot;Fulanito Mike&quot;
+    },
+    &quot;permissions&quot;: {
+      &quot;roles&quot;: [
+        &quot;reader&quot;
+      ]
+    }
+}"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating" th:text="${nombre}">Nombre del endpoint</label>
+                                                <input id="nombre" name="nombre" type="text" class="form-control" minlength="3" maxlength="16" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating" th:text="${descripcion}">Descripción</label>
+                                                <textarea id="descripcion" name="descripcion" class="form-control" lass="span6" rows="5"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group ">
+                                                <label class="bmd-label-floating" th:text="${tiempo}">Tiempo de expiración: </label>
+                                                <select id="limit" name="limit" class="form-control" aria-label="Default select example">
+                                                    <option th:text="${ano}" value="ano" selected>1 año</option>
+                                                    <option th:text="${mes}" value="mes">1 mes</option>
+                                                    <option th:text="${semana}" value="semana">1 semana</option>
+                                                    <option th:text="${dia}" value="dia">1 día</option>
+                                                    <option th:text="${hora}" value="hora">1 hora</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating" th:text="${demora}">Tiempo de respuesta</label>
+                                                <input id="demora" name="demora" type="number" class="form-control" min="0" value="0" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="" th:text="${jwt}">Aplicar JWT</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <fieldset>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="jwtrequired" id="yesRadio" value="true">
+                                                    <label class="form-check-label" for="yesRadio">Ok</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="jwtrequired" id="noRadio" value="false" checked="checked">
+                                                    <label class="form-check-label" for="noRadio">No</label>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <input id="submit" name="submit" type="submit" value="Crear endpoint" class="btn btn-secondary float-right">
+                                    <div class="clearfix"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+    </main>
+</body>
+<script>
+    $(document).ready(function() {
+        var max_fields = 10;
+        var wrapper = $("#headers-list");
+        var add_button = document.getElementById("add_form_field");
+
+        var x = 0;
+        $(add_button).click(function(e) {
+            e.preventDefault();
+            if (x < max_fields) {
+                x++;
+                $(wrapper).append('<div class="row"><div class="col-md-4"><input type="text" name="key' + x + '" id="key' + x + '" placeholder="Key"/></div>' +
+                    '<div class="col-md-4"><input type="text" name="value' + x + '" id="value' + x + '" placeholder="Value"/></div>' +
+                    '<div class="col-md-4"><a href="#" class="delete btn-sm btn-danger"><span style="font-size:16px; font-weight:bold;"> X </span></a></div></div>'); //add input box
+                $("#headersNum").val(x);
+            } else {
+                alert('You Reached the limits')
+            }
+        });
+
+        $(wrapper).on("click", ".delete", function(e) {
+            e.preventDefault();
+            $(this).parent('div').parent('div').remove();
+            x--;
+            $("#headersNum").val(x);
+        })
+    });
+</script>
+
+<script th:if="${error=='exist'}">
+    $(document).ready(function() {
+        alert("Endpoint already exist!");
+    });
+</script>
+
+<style>
+    .delete {
+        text-decoration: none !important;
+    }
+
+    #descripcion {
+        resize: none;
+    }
+
+    #cuerpo {
+        resize: none;
+    }
+</style>
+</html>
