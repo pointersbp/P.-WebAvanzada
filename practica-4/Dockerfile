@@ -1,4 +1,4 @@
-# Etapa 1: Compilar la aplicación
+#
 FROM openjdk:17 as build
 WORKDIR /app
 COPY . .
