@@ -1,0 +1,13 @@
+# Etapa 1: Construir la aplicación Spring Boot
+FROM openjdk:17 as build
+WORKDIR /app
+COPY . .
+RUN ./gradlew build
+# Etapa 2: Empaquetar la aplicación en una imagen JRE minimalista
+FROM openjdk:17-jre
+ENV APPLICATION_PORT 1234
+VOLUME /tmp
+ARG JAR_FILE=build/libs/*.jar
+EXPOSE $APPLICATION_PORT:8080
+COPY ${JAR_FILE} app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
