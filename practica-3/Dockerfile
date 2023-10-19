@@ -1,13 +1,14 @@
-
-FROM openjdk:17 as build
+FROM gradle:7.4.0-jdk17 as builder
 WORKDIR /app
-COPY . .
-RUN ./gradlew build
+COPY . ./
+RUN gradle bootJar
 
-FROM openjdk:17-jre
-ENV APPLICATION_PORT 1234
+FROM openjdk:17-jdk-slim
+ENV APPLICATION_PORT=1234
 VOLUME /tmp
-ARG JAR_FILE=build/libs/*.jar
-EXPOSE $APPLICATION_PORT:8080
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+
+ARG JAR_FILE=/app/build/libs/*.jar
+EXPOSE $APPLICATION_PORT
+COPY --from=builder $JAR_FILE app.jar
+ENTRYPOINT ["java", "-jar", "/app.jar"]
+
