@@ -1,0 +1,24 @@
+version: "3.9"
+services:
+  jms:
+    build: ./practica-JMS-jms
+    environment:
+      BROKER_CONNECTION: server:$BROKER_PORT
+      APPLICATION_PORT: $JMS_PORT
+    ports:
+        - $JMS_PORT:$JMS_PORT
+  client:
+    build: ./practica-JMS-client
+    environment:
+      BROKER_CONNECTION: server:$BROKER_PORT
+      APPLICATION_PORT: $CLIENT_PORT
+    ports:
+      - $CLIENT_PORT:$CLIENT_PORT
+  server:
+    build: ./practica-JMS-server
+    environment:
+      APPLICATION_PORT: $SERVER_PORT
+      BROKER_PORT: $BROKER_PORT
+    ports:
+      - $SERVER_PORT:$SERVER_PORT
+      - $BROKER_PORT:$BROKER_PORT

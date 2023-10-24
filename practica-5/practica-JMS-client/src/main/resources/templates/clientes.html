@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>Mi Broker</title>
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/fonts/ionicons.min.css">
+  <link rel="stylesheet" href="/css/styles.min.css">
+</head>
+
+<body>
+<nav class="navbar navbar-light navbar-expand-lg navigation-clean-button">
+  <div class="container"><a class="navbar-brand" href="#">Este es el broker</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="navcol-1">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link active" href="#">Clientes</a></li>
+        <li class="nav-item"><a class="nav-link" href="/graficos">Gráficos</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">Clientes</h4>
+    <h6 class="text-muted card-subtitle mb-2">Listado de clientes</h6>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+        <tr>
+          <th class="col-md-2">ID</th>
+          <th class="col-md-6">Nombre de cola</th>
+          <th class="col-md-4">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cliente : ${listaClientes}">
+          <td th:text="${cliente.idCliente}">0</td>
+          <td th:text="${cliente.getCola()}">Cliente 1</td>
+          <td>
+            <form action="/eliminarCliente" method="POST">
+              <input type="hidden" th:value="${cliente.idCliente}" id="id" name="id">
+              <input type="submit" class="btn btn-danger" value="Eliminar">
+            </form>
+          </td>
+        </tr>
+        <tr></tr>
+        </tbody>
+      </table>
+    </div>
+    <form action="/agregarCliente" method="POST"><input type="submit" class="btn btn-primary" value="Agregar Cliente"></form>
+
+  </div>
+</div>
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+<script src="/js/script.min.js"></script>
+</body>
+
+</html>
