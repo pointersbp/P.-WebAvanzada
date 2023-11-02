@@ -13,8 +13,10 @@ ENV APP_DB_USERNAME=
 ENV APP_DB_PASSWORD=
 WORKDIR /app
 EXPOSE ${APPLICATION_PORT}/tcp
-COPY --from=builder /app/build/libs/*.jar app.jar
-
-COPY --from=builder $JAR_FILE app.jar
+#COPY --from=builder /app/build/libs/*.jar app.jar
+COPY build/libs/Practica-CloneMocky-0.0.1-SNAPSHOT.jar ./app.jar
+#build/libs/Practica-CloneMocky-0.0.1-SNAPSHOT.jar
+#COPY --from=builder $JAR_FILE app.jar
+COPY --from=builder /app/target/Practica-CloneMocky-0.0.1-SNAPSHOT.jar app.jar
 ENTRYPOINT ["java", "-jar", "/app.jar"]
 
