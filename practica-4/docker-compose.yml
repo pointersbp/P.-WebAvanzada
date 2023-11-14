@@ -13,15 +13,16 @@ services:
     volumes:
       - db:/var/lib/mysql
   app:
-    image: donnie998/dockercompose:latest
+    image:  donnie998/dockercompose:2.0
     depends_on:
       db:
         condition: service_healthy
     environment:
-      SPRING_DATASOURCE_URL: jdbc:h2:tcp://db:1521/mydb
-      SPRING_DATASOURCE_USERNAME: my_username
-      SPRING_DATASOURCE_PASSWORD: my_password
-      SERVER_PORT: 8080
+      APP_DB_URL: jdbc:mysql://db:$DB_DOCKER_PORT/$DB_DATABASE?useSSL=false
+      APP_DB_DRIVER_CLASSNAME: com.mysql.jdbc.Driver
+      APP_DB_PLATFORM: "org.hibernate.dialect.MySQL5InnoDBDialect"
+      APP_DB_USERNAME: $DB_USER
+      APP_DB_PASSWORD: $DB_PASS
     ports:
       - 8080:8080
   phpmyadmin:
