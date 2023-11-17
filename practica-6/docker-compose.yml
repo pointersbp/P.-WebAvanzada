@@ -1,0 +1,70 @@
+version: "3.4"
+services:
+
+  base-datos:
+    image: mysql:5.7.26
+    ports:
+      - 33006:33006
+    environment:
+      - MYSQL_ROOT_PASSWORD=12345678
+      - MYSQL_USER=db
+      - MYSQL_DATABASE=Notificacion_sensores
+    volumes:
+      - ~/data_mysql:/var/lib/mysql
+    networks:
+      - red-app
+
+  app1:
+    build:
+      context: Practica-CloneMocky/
+      dockerfile: Dockerfile
+
+    environment:
+      - PUERTO_APP=8080
+
+    networks:
+      - red-app
+    depends_on:
+      - base-datos
+
+  app2:
+    build:
+      context: Practica-CloneMocky/
+      dockerfile: Dockerfile
+
+    environment:
+      - PUERTO_APP=8081
+
+    networks:
+      - red-app
+    depends_on:
+      - base-datos
+
+  app3:
+    build:
+      context: Practica-CloneMocky/
+      dockerfile: Dockerfile
+
+    environment:
+      - PUERTO_APP=8082
+
+    networks:
+      - red-app
+    depends_on:
+      - base-datos
+
+  sevidor-haproxy:
+    build:
+      context: haproxy/
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+      - 443:443
+    networks:
+      - red-app
+    depends_on:
+      - app1
+      - app2
+      - app3
+networks:
+  red-app:

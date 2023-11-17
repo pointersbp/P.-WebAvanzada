@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <script src="/js/bootstrap.min.js.map"></script>
+    <script src="/js/jquery-3.6.0.min.js"></script>
+    <script src="/js/inicioScripts.js"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="/css/inicioStyles.css" rel="stylesheet" />
+    <link href="/css/proyectoStylesheet.css" rel="stylesheet" />
+    <title>Administración</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand" href="#page-top">MI MOCKY</a>
+                <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/">Inicio</a></li>
+                        <li th:if="${admin}" class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#">Administrador</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/proyecto/">Proyectos</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/endpoint">Configurar Endpoint</a></li>
+                        <li  class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/desconectarset">Cerrar Sesión</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+    </header>
+    <main role="main" class="container">
+        <div class="container-fluid">
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-primary">
+                        </div>
+                        <div class="card-body">
+                            <div th:unless="${modificar}" class="container">
+                                <hr>
+                                <form action="/crearusuario" method="POST" onsubmit="return authPassword()">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating">Username</label>
+                                                <input id="username" name="username" type="text" class="form-control" minlength="3" maxlength="16" pattern="^[a-zA-Z]*" placeholder="Ingrese nombre de usuario" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating">Nombre</label>
+                                                <input id="nombre" name="nombre" type="text" class="form-control" minlength="3" maxlength="16" pattern="^[a-zA-Z]*" placeholder="Ingrese su nombre" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating">Rol: </label>
+                                                <select id="rol" name="rol" class="form-control">
+                                                    <option value="ROLE_USER" selected>Usuario</option>
+                                                    <option value="ROLE_ADMIN">Administrador</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating">Contraseña</label>
+                                                <input id="password" name="password" type="password" class="form-control" minlength="3" maxlength="16" placeholder="Ingrese la clave" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating">Confirmar contraseña</label>
+                                                <input id="password2" name="password2" type="password" class="form-control" minlength="3" maxlength="16" placeholder="Volver a ingresar" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br></br>
+                                    <input id="submit" name="submit" type="submit" value="Crear usuario" class="btn btn-secondary float-right">
+                                    <div class="clearfix"></div>
+                                </form>
+                            </div>
+                            <div th:if="${modificar}" class="container">
+                                <h3 style="text-align: center;">Modificar usuario</h3>
+                                <hr>
+                                <form action="/modificarusuario" method="POST" onsubmit="return authPassword()">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating">Nombre de usuario</label>
+                                                <input id="username" name="username" type="text" th:value="${modificar.username}" class="form-control" minlength="3" maxlength="16" pattern="^[a-zA-Z]*" placeholder="Ingrese nombre de usuario" readonly required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating">Nombre</label>
+                                                <input id="nombre" name="nombre" th:value="${modificar.nombre}" type="text" class="form-control" minlength="3" maxlength="16" pattern="^[a-zA-Z]*" placeholder="Ingrese su nombre" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating">Rol: </label>
+                                                <select id="rol" name="rol" class="form-control">
+                                                    <option value="ROLE_USER" selected>Usuario</option>
+                                                    <option value="ROLE_ADMIN">Administrador</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating">Contraseña</label>
+                                                <input id="password" name="password" type="password" class="form-control" minlength="3" maxlength="16" placeholder="Ingrese la clave" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating">Confirmar contraseña</label>
+                                                <input id="password2" name="password2" type="password" class="form-control" minlength="3" maxlength="16" placeholder="Volver a ingresar" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input id="submit" name="submit" type="submit" value="Modificar usuario" class="btn btn-secondary float-right">
+                                    <div class="clearfix"></div>
+                                </form>
+                            </div>
+                            <br>
+                            <hr>
+                            <div class="content" th:if="${misUsuarios}">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead class=" text-primary">
+                                            <th class="col-md-3">
+                                                Username
+                                            </th>
+                                            <!--Si no es admin-->
+                                            <th class="col-md-3">
+                                                Nombre
+                                            </th>
+                                            <th class="col-md-3">
+                                                Rol
+                                            </th>
+                                            <th class="col-md-3">
+                                                Acción
+                                            </th>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="usuario : ${misUsuarios}">
+                                                <form action="/eliminarusuario" method="POST">
+                                                    <td th:text="${usuario.username}">
+                                                        0
+                                                    </td>
+                                                    <td th:text="${usuario.nombre}">
+                                                        Username
+                                                    </td>
+                                                    <td th:text="${usuario.rol}">
+                                                        ROLE_USER
+                                                    </td>
+                                                    <td>
+                                                        <input th:value="${usuario.username}" id="username" name="username" type="hidden" class="form-control" readonly required>
+                                                        <input th:unless="${usernameActual != 'admin' and usuario.rol == 'ROLE_ADMIN' and usernameActual != usuario.username}" type="submit" formaction="/modificar" value="Modificar" class="btn btn-primary">
+                                                        <input th:unless="${usernameActual == usuario.username or usuario.username == 'admin'}" type="submit" title="Advertencia: esta acción eliminará los proyectos asociados a este usuario y sus endpoint." value="Eliminar" class="btn btn-danger">
+                                                    </td>
+                                                </form>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+<script>
+    function authPassword() {
+        var pass1 = document.getElementById("password").value;
+        var pass2 = document.getElementById("password2").value;
+        if (pass1 != pass2) {
+            alert("LAS CLAVES NO COINCIDEN!");
+        }
+        return pass1 == pass2;
+    }
+</script>
+
+<script th:if="${modificar}">
+    function selectLoad() {
+        var rol = "[[${modificar.rol}]]";
+        var selectRol = document.getElementById('rol');
+        selectRol.value = rol;
+    }
+    $(document).ready(function() {
+        selectLoad();
+    });
+</script>
+
+</html>
