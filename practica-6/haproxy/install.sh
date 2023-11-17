@@ -7,7 +7,7 @@ snap install --classic certbot
 ln -s /snap/bin/certbot /usr/bin/certbot
 
 #Ejecutar certbot para obtener credenciales
-sudo certbot certonly --standalone -d servidorapp2.newdeveloperjsh.software  -m sebastich123@gmail.com
+sudo certbot certonly --standalone -d servidorapp2.newdeveloperjsh.software  -m luisdonaldosalguero7@gmail.com
 
 #Las credenciales se guardan en /etc/letsencrypt/live/<URI>
 #Unir credenciales dentro de un solo archivo para ser usadas por haproxy
