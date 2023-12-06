@@ -1,18 +1,18 @@
-#Instalar snap
-apt update
-apt install snapd -y
+#!/bin/bash
 
-#Instalar Certbot
+# Instalar Certbot
 snap install --classic certbot
 ln -s /snap/bin/certbot /usr/bin/certbot
 
-#Ejecutar certbot para obtener credenciales
-sudo certbot certonly --standalone -d servidorapp2.newdeveloperjsh.software  -m luisdonaldosalguero7@gmail.com
+# Ejecutar Certbot para obtener credenciales
+sudo certbot certonly --standalone -d app1.donaldsg.me -d app2.donaldsg.me -d app3.donaldsg.me -m tu_correo@gmail.com
 
-#Las credenciales se guardan en /etc/letsencrypt/live/<URI>
-#Unir credenciales dentro de un solo archivo para ser usadas por haproxy
+# Las credenciales se guardan en /etc/letsencrypt/live/<URI>
+# Unir credenciales dentro de un solo archivo para ser usadas por HAProxy
 mkdir -p /etc/haproxy/certs
-DOMAIN='servidorapp2.newdeveloperjsh.software'
-cat /etc/letsencrypt/live/$DOMAIN/fullchain.pem /etc/letsencrypt/live/$DOMAIN/privkey.pem > /etc/haproxy/certs/$DOMAIN.pem
-cat /etc/letsencrypt/live/servidorapp2.newdeveloperjsh.software/fullchain.pem /etc/letsencrypt/live/servidorapp2.newdeveloperjsh.software/privkey.pem > /etc/haproxy/certs/servidorapp2.newdeveloperjsh.software.pem
+
+cat /etc/letsencrypt/live/app1.donaldsg.me/fullchain.pem /etc/letsencrypt/live/app1.donaldsg.me/privkey.pem > /etc/haproxy/certs/app1.donaldsg.me.pem
+cat /etc/letsencrypt/live/app2.donaldsg.me/fullchain.pem /etc/letsencrypt/live/app2.donaldsg.me/privkey.pem > /etc/haproxy/certs/app2.donaldsg.me.pem
+cat /etc/letsencrypt/live/app3.donaldsg.me/fullchain.pem /etc/letsencrypt/live/app3.donaldsg.me/privkey.pem > /etc/haproxy/certs/app3.donaldsg.me.pem
+
 chmod -R go-rwx /etc/haproxy/certs

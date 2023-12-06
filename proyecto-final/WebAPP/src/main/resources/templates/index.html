@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>PUCMM Eventos Santiago</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top d-flex align-items-center">
+        <div class="container d-flex align-items-center">
+
+            <div class="logo me-auto">
+                <h1><a href="#">PUCMM Eventos Santiago</a></h1>
+            </div>
+
+            <nav id="navbar" class="navbar order-last order-lg-0" sec:authorize="!isAuthenticated()">
+                <ul>
+                    <li><a class="nav-link scrollto active" href="#hero">Inicio</a></li>
+                    <li><a class="nav-link scrollto" href="#about">Nosotros</a></li>
+                    <li><a class="nav-link scrollto" href="#product">Productos</a></li>
+                    <li><a class="nav-link scrollto" href="/login">Iniciar Sesión</a></li>
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav>
+            <nav id="navbar" class="navbar order-last order-lg-0" sec:authorize="isAuthenticated()">
+                <ul>
+                    <li><a class="nav-link scrollto active" href="#hero">Inicio</a></li>
+                    <li><a class="nav-link scrollto" href="#about">Nosotros</a></li>
+                    <li><a class="nav-link scrollto" href="#product">Productos</a></li>
+                    <li sec:authorize="hasAnyAuthority('ROL_SUPER_ADMIN', 'ROL_ADMIN', 'ROL_EMPLEADO')"><a class="nav-link scrollto" href="/dashboard">Dashboard</a></li>
+                    <li><a class="nav-link scrollto" href="/tienda">Tienda</a></li>
+                    <li><a class="nav-link scrollto" href="/logout">Cerrar Sesión</a></li>
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav>
+            <!-- .navbar -->
+
+            <div class="header-social-links d-flex align-items-center">
+                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
+            </div>
+
+        </div>
+    </header>
+    <!-- End Header -->
+
+    <!-- ======= Hero Section ======= -->
+    <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
+        <div class="container text-center text-md-left" data-aos="fade-up">
+            <h1>Bienvenidos a <span>PUCMM eventos Santiago</span></h1>
+            <h2>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.</h2>
+            <a href="#about" class="btn-get-started scrollto">Conócenos</a>
+        </div>
+    </section>
+    <!-- End Hero -->
+
+    <main id="main">
+
+        <!-- ======= What We Do Section ======= -->
+        <section id="what-we-do" class="what-we-do">
+            <div class="container">
+
+                <div class="section-title">
+                    <h2>¿Qué hacemos?</h2>
+                    <p>Nuestra empresa cuenta con los siguientes servicios</p>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+                        <div class="icon-box">
+                            <div class="icon"><i class="bx bxl-dribbble"></i></div>
+                            <h4><a href="#">Fotografía</a></h4>
+                            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
+                        <div class="icon-box">
+                            <div class="icon"><i class="bx bx-file"></i></div>
+                            <h4><a href="#">Vídeos</a></h4>
+                            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
+                        <div class="icon-box">
+                            <div class="icon"><i class="bx bx-tachometer"></i></div>
+                            <h4><a href="#">Eventos</a></h4>
+                            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <!-- End What We Do Section -->
+
+        <!-- ======= About Section ======= -->
+        <section id="about" class="about">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <img src="/img/about.jpg" class="img-fluid" alt="">
+                    </div>
+                    <div class="col-lg-6 pt-4 pt-lg-0">
+                        <h3>Acerca de nosotros.</h3>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                        </p>
+                        <ul>
+                            <li><i class="bx bx-check-double"></i> Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</li>
+                            <li><i class="bx bx-check-double"></i> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</li>
+                        </ul>
+                        <div class="row icon-boxes">
+                            <div class="col-md-6">
+                                <i class="bx bx-receipt"></i>
+                                <h4>Misión</h4>
+                                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+                            </div>
+                            <div class="col-md-6 mt-4 mt-md-0">
+                                <i class="bx bx-cube-alt"></i>
+                                <h4>Visión</h4>
+                                <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <!-- End About Section -->
+
+        <!-- ======= Counts Section ======= -->
+        <section id="counts" class="counts">
+            <div class="container">
+
+                <div class="row">
+
+                    <div class="col-lg-3 col-6">
+                        <div class="count-box">
+                            <i class="bi bi-emoji-smile"></i>
+                            <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
+                            <p>Clientes Felices</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-6">
+                        <div class="count-box">
+                            <i class="bi bi-journal-richtext"></i>
+                            <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
+                            <p>Proyectos</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-6 mt-5 mt-lg-0">
+                        <div class="count-box">
+                            <i class="bi bi-headset"></i>
+                            <span data-purecounter-start="0" data-purecounter-end="1463" data-purecounter-duration="1" class="purecounter"></span>
+                            <p>Horas de Apoyo</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-6 mt-5 mt-lg-0">
+                        <div class="count-box">
+                            <i class="bi bi-people"></i>
+                            <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1" class="purecounter"></span>
+                            <p>Personal</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+        <!-- End Counts Section -->
+
+        <!-- ======= Products Section ======= -->
+        <section id="product" class="services section-bg">
+            <div class="container">
+
+                <div class="section-title">
+                    <h2>Productos</h2>
+                    <p>Nuestra empresa cuenta los siguientes paquetes</p>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="icon-box">
+                            <i class="bi bi-briefcase"></i>
+                            <h2 class="accordion-header" id="headingOne">
+                                <button aria-controls="collapseOne" aria-expanded="true" class="accordion-button" data-bs-target="#collapseOne"
+                                        data-bs-toggle="collapse" type="button">
+                                    <h5>Pre-Boda</h5>
+                                </button>
+                            </h2>
+                            <div aria-labelledby="headingOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample"
+                                 id="collapseOne">
+                                <div class="accordion-body">
+                                    <p>
+                                        Lugares románticos al atardecer que solo puedes encontrar dentro de las puertas de Casa de
+                                        Campo, te ofrecen opciones privadas y exclusivas para cada una de tus experiencias de eventos
+                                        especiales.
+                                        Usted es realmente único. Ya sean solo ustedes dos, algunos de ustedes o un gran evento con
+                                        familiares y amigos;
+                                        a nuestro equipo de bodas experto le apasiona asegurarse de que esté realmente mimado y tenga
+                                        una experiencia libre de estrés desde el principio.
+                                    </p>
+                                    <strong>Precio: RD$1,000.00</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-4 mt-lg-0">
+                        <div class="icon-box">
+                            <i class="bi bi-card-checklist"></i>
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button aria-controls="collapseTwo" aria-expanded="false" class="accordion-button collapsed"
+                                        data-bs-target="#collapseTwo" data-bs-toggle="collapse" type="button">
+                                    <h5>Boda</h5>
+                                </button>
+                            </h2>
+                            <div aria-labelledby="headingTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample"
+                                 id="collapseTwo">
+                                <div class="accordion-body">
+                                    <p>Un día inolvidable, una decisión que marca tu vida, queremos compartir esa experiencia contigo,
+                                        te ayudaremos a planificar,
+                                        organizar y coordinar todos los detalles de tu boda, con una selección de lugares, estilos,
+                                        temas, colores y tips para hacer de ese día un sueño hecho realidad.
+                                    </p>
+                                    <strong>Precio: RD$5,000.00</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-4">
+                        <div class="icon-box">
+                            <i class="bi bi-bar-chart"></i>
+                            <h2 class="accordion-header" id="headingThree">
+                                <button aria-controls="collapseThree" aria-expanded="false" class="accordion-button collapsed"
+                                        data-bs-target="#collapseThree" data-bs-toggle="collapse" type="button">
+                                    <h5>Cumpleaños</h5>
+                                </button>
+                            </h2>
+                            <div aria-labelledby="headingThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample"
+                                  id="collapseThree">
+                            <div class="accordion-body">
+                                <p>Cumples años y quierés que ese momento quede retratado con fotografía profesional? Nosotros
+                                    cubrimos el evento para que puedas guardar por siempre esos momentos y compartirlos con tus
+                                    seres queridos. Nos enfocamos en tomar tanto fotografías espontáneas como también las
+                                    tradicionales (¡infaltables!) de cada momento.</p>
+                                <strong>Precio: RD$3,000.00</strong>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-4">
+                        <div class="icon-box">
+                            <i class="bi bi-binoculars"></i>
+                            <h2 class="accordion-header" id="headingFour">
+                                <button aria-controls="collapseFour" aria-expanded="false" class="accordion-button collapsed"
+                                        data-bs-target="#collapseFour" data-bs-toggle="collapse" type="button">
+                                    <h5>Video de Evento</h5>
+                                </button>
+                            </h2>
+                            <div aria-labelledby="headingFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample"
+                                 id="collapseFour">
+                                <div class="accordion-body">
+                                    <p>Ofrecemos los servicios de videos para eventos, comerciales, corporativos, video para redes
+                                        sociales, realización de documentales, video clips, Filmación de bodas. Puedes escoger entre
+                                        varias opciones y hasta personalizarlo para descubrir “La perfección ajustada a tu presupuesto
+                                        ”</p>
+                                    <strong>Precio: RD$4,000.00</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <!-- End Services Section -->
+
+    </main>
+    <!-- End #main -->
+
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
+        <div class="container d-md-flex py-4">
+            <div class="social-links text-center text-md-right pt-3 pt-md-0">
+                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer -->
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="/vendor/purecounter/purecounter.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="/vendor/waypoints/noframework.waypoints.js"></script>
+    <script src="/vendor/php-email-form/validate.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <!-- Template Main JS File -->
+    <script src="/js/main.js"></script>
+    <script sec:authorize="!isAuthenticated()" src="/js/application/noindex.js"></script>
+    <script sec:authorize="isAuthenticated()" src="/js/application/index.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+server:
+  port: ${APPLICATION_PORT:8080}
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: ventas
+          uri: lb://MICROSERVICIO-VENTAS
+          predicates:
+            - Path=/api/ventas/**
+        - id: usuarios
+          uri: lb://MICROSERVICIO-USUARIO
+          predicates:
+            - Path=/api/auth/**
+        - id: notificaciones
+          uri: lb://MICROSERVICIO-NOTIFICACIONES
+          predicates:
+            - Path=/notificacion/**
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedHeaders: "*"
+            allowedMethods:
+              - OPTIONS
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - PATCH
