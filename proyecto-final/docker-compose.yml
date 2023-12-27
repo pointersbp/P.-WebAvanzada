@@ -50,7 +50,7 @@ services:
   user_microservice_3:
     build: ./UserBase
     environment:
-      APPLICATION_PORT: 7002
+      APPL: 7002
       EUREKA_URI: http://servidor-eureka:$EUREKA_PORT/eureka
       CONFIGURACION_URL: http://servidor-configuracion:$CONFIG_PORT/
       DB_URL: jdbc:mysql://dbusuario:$DB_USER_PORT/$DB_USER_DATABASE?autoReconnect=true&useSSL=false

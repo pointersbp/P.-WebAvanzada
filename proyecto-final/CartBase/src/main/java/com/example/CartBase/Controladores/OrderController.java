@@ -59,7 +59,7 @@ public class OrderController {
         return new Summary(servicio, fecha);
     }
 
-    //crear una order, retorna un link para que sea redirecionado el usuario.
+    //crear una orden, retorna un link para que redireccione al usuario.
     @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE)
     public String createOrder(@RequestBody RequestNewOrder requestNewOrder) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

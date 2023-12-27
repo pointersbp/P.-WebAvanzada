@@ -1,4 +1,4 @@
-#Imagen oficial
+#Image
 FROM haproxy:2.3
 #Mover el script dentro del contenedor
 ADD install.sh /

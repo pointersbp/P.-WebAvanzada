@@ -119,7 +119,7 @@ public class CartController {
                 String.class
         );
         if (!response.getStatusCode().equals(HttpStatus.OK))
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Hubo un problema.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Error!");
         return new RedirectView(response.getBody());
     }
 }

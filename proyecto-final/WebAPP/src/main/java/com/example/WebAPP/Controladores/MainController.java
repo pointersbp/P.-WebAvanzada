@@ -26,7 +26,7 @@ public class MainController {
     public String registro() {
         return "signup";
     }
-
+// Para redireccionar
     @RequestMapping("/verifyAuthentication")
     public String autenticacion() {
         log.info("Redirect a: /");
